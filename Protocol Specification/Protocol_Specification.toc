@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {1}Protocol Spezification - Victron BMV 700}{3}{section.1}
+\contentsline {section}{\numberline {2}Protocol Spezification - Victron MPPT Chargers}{5}{section.2}
+\contentsline {section}{\numberline {3}Protocol Spezification - Victron BlueSolar Grid Inverter}{6}{section.3}
+\contentsline {section}{\numberline {4}Protocol Spezification - Victron Multiplus and Quadro}{9}{section.4}

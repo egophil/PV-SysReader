@@ -1,0 +1,43 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{nameref}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\usepackage{pgf}
+\usepackage{tikz}
+
+%opening
+\title{Protocol Specification}
+\author{Philipp Driess}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document defines the message specification of the Victron BMV 700 and 
+BlueSolar Grid Inverter devices. The message specification of the BlueSolar 
+Inverter can be wrong, because it was reverse engineered with help of a logic 
+analayzer.
+Feel free to extend it and if you find errors get in touch with me or write an 
+patch. 
+\end{abstract}
+\newpage
+\tableofcontents
+\include{chapters/BMV700}
+\include{chapters/VICTRONMPPT}
+\include{chapters/BSINV}
+\include{chapters/MULTIQUAD}
+\end{document}

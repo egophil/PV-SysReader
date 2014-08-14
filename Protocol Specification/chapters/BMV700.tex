@@ -1,0 +1,74 @@
+\section{Protocol Spezification - Victron BMV 700}
+\label{VICTRONBMV700EBNF}
+
+\begin{verbatim}
+
+LF =               "0x0d","0x0a" ;
+Tab =              "0x09" ;
+HexDigit =         [ a-fA-F0-9 ] ;
+Byte =             HexDigit, HexDigit ;
+Hex =              ( "0x", Byte ) ;
+U_INT8 =           Hex ;
+U_INT16 =          Hex, Hex ;
+U_INT32 =          Hex, Hex, Hex,Hex ;
+INT32 =            Hex, Hex, Hex,Hex ;
+ASCII_Char =       Hex ;
+
+PID =      LF, "PID", Tab, U_INT16 ;   (* Product ID *)
+V =        LF, "V", Tab, U_INT16 ;     (* Main (battery) voltage *)
+VS =       LF, "VS", Tab, U_INT16 ;    (* Auxiliary (starter) voltage *)
+VM =       LF, "VS", Tab, U_INT16 ;    (* Mid-point voltage battery bank *)
+DM =       LF, "VS", Tab, U_INT16 ;    (* Mid-point deviation battery bank *)
+I =        LF, "I", Tab, INT32 ;       (* Current *)
+T =        LF, "I", Tab, INT32 ;       (* Battery temperature *)
+P =        LF, "P", Tab, INT32 ;       (* Instantaneous power *)
+CE =       LF, "CE", Tab, INT32 ;      (* Consumed Amp Hours *)
+SOC =      LF, "SOC", Tab, U_INT16 ;   (* Consumed Amp H State-of-charge *)
+TTG =      LF, "TTG", Tab, U_INT16 ;   (* Time-to-go *)
+
+Alarm =    LF, "Alarm", Tab, ASCII_Char[ 3 ] ; (* Alarm condition active *)
+Relay =    LF, "Relay", Tab, ASCII_Char[ 3 ] ; (* Relay stat *)
+AR =       LF, "AR", Tab, U_INT8 ;             (* Alarm reason *)
+BMV =      LF, "BMV", Tab, U_INT16 ;           (* Model description *)
+FW =       LF, "FW", Tab, U_INT16 ;            (* Firmware versio *)
+H1 =       LF, "H1", Tab, INT32 ;              (* Alarm reason Depth of the 
+                                                  deepest discharge *)
+                                                  
+H2 =       LF, "H2", Tab, INT32 ;     (* Depth of the last discharge *)
+H3 =       LF, "H3", Tab, INT32 ;     (* Depth of the average discharge *)
+H4 =       LF, "H4", Tab, U_INT16 ;   (* Number of charge cycles *)
+H5 =       LF, "H5", Tab, U_INT16 ;   (* Number of full discharges *)
+H6 =       LF, "H6", Tab, U_INT16 ;   (* Cumulative Amp Hours drawn *)
+H7 =       LF, "H7", Tab, U_INT16 ;   (* Minimum main (battery) voltage *)
+H8 =       LF, "H8", Tab, U_INT16 ;   (* Maximum main (battery) 
+                                         voltage *)
+H9 =       LF, "H9", Tab, U_INT16 ;   (* Number of seconds since last full
+                                         charge *)
+H10 =      LF, "H10", Tab, U_INT16 ;  (* Number of automatic 
+                                         synchronizations *)
+H11 =      LF, "H11", Tab, U_INT16 ;  (* Number of low main voltage alarms *)
+H12 =      LF, "H12", Tab, U_INT16 ;  (* Number of high main voltage alarms *)
+H13 =      LF, "H13", Tab, U_INT16 ;  (* Number of low auxiliary voltage 
+                                         alarms *)
+H14 =      LF, "H14", Tab, U_INT16 ;  (* Number of high auxiliary voltage 
+                                         alarms *)
+H15 =      LF, "H15", Tab, U_INT16 ;  (* Number of high auxiliary voltage 
+                                         alarms *)
+H16 =      LF, "H16", Tab, U_INT16 ;  (* Maximum auxiliary (battery) 
+                                         voltage *)
+H17 =      LF, "H17", Tab, U_INT16 ;  (* Amount of discharged energy *)
+H18 =      LF, "H18", Tab, U_INT16 ;  (* Amount of charged energy * )
+
+Checksum = LF, "Checksum", Tab, Hex ; (* CRC-8 * )
+
+BMV_700_Block1 = PID, V, I, P, CE, SOC, TTG, Alarm, Relay, AR, BMV, FW, 
+                 Checksum ;
+
+BMV_700_Block2 = H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, 
+                 H15, H16, H17, H18, Checksum ;
+
+BMV_700_MSG =    BMV_700_Block1, BMV_700_Block2 ;
+\end{verbatim}
+\newpage
+
+

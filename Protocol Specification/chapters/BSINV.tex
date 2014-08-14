@@ -1,0 +1,129 @@
+\section{Protocol Spezification - Victron BlueSolar Grid Inverter}
+\label{VICTRONBSINVEBNF}
+\begin{verbatim}
+HexDigit =                          [ a-fA-F0-9 ] ;
+Byte =                              HexDigit, HexDigit ;
+Hex =                               ( "0x", Byte ) ;
+
+Size =                              Hex ;
+U_INT32 =                           Hex, Hex, Hex, Hex ;
+U_INT16 =                           Hex, Hex ;
+U_INT8 =                            Hex ;
+ASCII_Code =                        Hex ;
+
+ID1 =                               "0x01","0x04" ;
+ID2 =                               "0x01","0x03" ;
+KW_Total =                          U_INT32 ;
+Run_Time_Day =                      U_INT16 ;
+Run_Time_Total =                    U_INT32 ;
+Temp =                              U_INT16 ;
+A_CPU_BUS_U =                       U_INT16 ;
+Checksum =                          U_INT16 ; (* CRC-16 (Modbus) *)
+DC_Voltage =                        U_INT16 ;
+AC_Voltage =                        U_INT16 ;
+AC_Current =                        U_INT16 ;
+DC_Voltage =                        U_INT16 ;
+AC_Freq =                           U_INT16 ;
+PV_Watt =                           U_INT16 ;
+KW_Day  =                           U_INT16 ;
+B_CPU_AC_U =                        U_INT16 ;
+DCI1 =                              U_INT8 ;
+SoftwareVersion =                   Hex, Hex ;
+Serialnumber =                      Hex, Hex, Hex, Hex, Hex, Hex ;
+ModbusAddress =                     Hex ;
+VPV_Start_V =                       U_INT16 ;
+T_Starts =                          U_INT16 ;
+Code =                              U_INT16 ;
+VAC_Low_Voltage_V =                 U_INT16 ;
+VAC_Ultra_Low_Voltage_V =           U_INT16 ;
+Time_Low_Voltage =                  U_INT16 ; 
+Time_Ultra_Low_Voltage =            U_INT16 ;
+VAC_High_Voltage_V =                U_INT16 ;
+VAC_Ultra_High_Voltage_V =          U_INT16 ;
+Time_High_Voltage =                 U_INT16 ;
+Time_Ultra_High_Votlage =           U_INT16 ;
+Low_Frequency =                     U_INT16 ;
+Ultra_Low_Frequency =               U_INT16 ;
+Time_Low_Frequency =                U_INT16 ;
+Time_Ultra_Low_Frequency =          U_INT16 ;
+High_Frequency =                    U_INT16 ;
+Ultra_High_Frequency =              U_INT16 ;
+Time_High_Frequency =               U_INT16 ;
+Time_Ultra_High_Frequency =         U_INT16 ;
+DCI_Limit =                         U_INT16 ;
+Full_Power_Limit =                  U_INT16 ;
+Active_Power_Reduction_rate_pf_Hz = U_INT16 ;
+KPV_Gain =                          U_INT16 ;
+KAC_Gain =                          U_INT16 ;
+KA_Bus_Gain =                       U_INT16 ;
+KB_CPU_AC_Gain =                    U_INT16 ;
+DCI_Shift =                         U_INT16 ;
+Inverter_Mode =                     ASCII_Code [12] ;
+Fac_High_SPI_Hz =                   U_INT16 ;
+Fac_Low_SPI_Hz =                    U_INT16 ;
+Time_Fac_High_SPI_Hz =              U_INT16 ;
+Time_Fac_Low_SPI_Hz =               U_INT16 ;
+Connection_Fac_High_Hz =            U_INT16 ;
+Connection_Fac_Low_Hz =             U_INT16 ;
+
+Request01 = 0x01, 0x04, 0x00, 0x14, 0x00, 0x11, 0x70, 0x02 ;
+Request02 = 0x01, 0x04, 0x00, 0x00, 0x00, 0x14, 0xF0, 0x05 ;
+Request03 = 0x01, 0x04, 0x03, 0xE8, 0x00, 0x14, 0x70, 0x75 ;
+Request04 = 0x01, 0x03, 0x00, 0x00, 0x00, 0x0C, 0x45, 0xCF ;
+Request05 = 0x01, 0x03, 0x00, 0x64, 0x00, 0x09, 0x45, 0xCF ;
+Request06 = 0x01, 0x03, 0x00, 0xC8, 0x00, 0x12, 0x44, 0x39 ;
+Request07 = 0x01, 0x03, 0x00, 0xDC, 0x00, 0x02, 0x05, 0xF1 ;
+Request08 = 0x01, 0x03, 0x01, 0x2C, 0x00, 0x06, 0x05, 0xFD ;
+Request09 = 0x01, 0x03, 0x01, 0x90, 0x00, 0x14, 0x44, 0x14 ;
+Request10 = 0x01, 0x03, 0x03, 0xE8, 0x00, 0x14, 0xC5, 0xB5 ;
+Request11 = 0x01, 0x03, 0x04, 0x10, 0x00, 0x14, 0x45, 0x30 ;
+Request12 = 0x01, 0x03, 0x04, 0x24, 0x00, 0x05, 0xC4, 0xF2 ;
+Request13 = 0x01, 0x03, 0x04, 0x4C, 0x00, 0x14, 0x85, 0x22 ;
+Request14 = 0x01, 0x03, 0x01, 0xF5, 0x00, 0x06, 0xD4, 0x06 ;
+
+Reply01   = ID1, Size, KW_Total, Run_Time_Day, Run_Time_Total, Hex[ 12 ], Temp, 
+            A_CPU_BUS_U, Hex[ 8 ], Checksum ;
+
+Reply02   = ID1, Size, DC_Voltage, Hex[ 10 ], AC_Voltage, Hex[ 4 ], 
+            AC_Current, Hex[ 4 ], AC_Freq, Hex[ 8 ], PV_Watt, Hex[ 2 ],
+            KW_Day, Checksum ;
+
+Reply03   = ID1, Size, Hex[ 12 ], B_CPU_AC_U, Hex[ 22 ], DCI1, Hex[ 2 ], 
+            Checksum ;
+            
+Reply04   = ID2, Size, Hex[ 4 ], SoftwareVersion, Hex[ 6 ], Serialnumber, 
+            Hex[ 5 ], ModbusAddress, Checksum ;
+            
+Reply05   = ID2, Size, VPV_Start_V, Hex[ 6 ], T_Starts, Hex[ 8 ], Checksum ;
+
+Reply06   = ID2, Size, Code, VAC_Low_Voltage_V, VAC_Ultra_Low_Voltage_V,
+            Time_Low_Voltage, Time_Ultra_Low_Voltage, VAC_High_Voltage_V,
+            VAC_Ultra_High_Voltage_V, Time_High_Voltage, 
+            Time_Ultra_High_Votlage, Low_Frequency, Ultra_Low_Frequency,
+            Time_Low_Frequency, Time_Ultra_Low_Frequency, High_Frequency, 
+            Ultra_High_Frequency, Time_High_Frequency, 
+            Time_Ultra_High_Frequency, DCI_Limit, Checksum ;
+
+Reply07   = ID2, Size, Hex[ 4 ], Checksum ;
+
+Reply08   = ID2, Size, Hex[ 12 ], Checksum ;
+
+Reply09   = ID2, Size, Hex[ 4 ], Full_Power_Limit, Hex[ 2 ], 
+            Active_Power_Reduction_rate_pf_Hz, Hex[ 30 ],
+            Checksum;
+
+Reply10   = ID2, Size, Hex[ 12 ], KPV_Gain, Hex[ 14 ], KAC_Gain, Hex[ 6 ],
+            KA_Bus_Gain, Hex[ 2 ], Checksum ;
+
+Reply11   = ID2, Size, Hex[ 12 ], KB_CPU_AC_Gain, Hex[ 26 ], Checksum ;
+
+Reply12   = ID2, Size, Hex[ 8 ], DCI_Shift, Checksum ;
+
+Reply13   = ID2, Size, Inverter_Mode, Hex[ 28 ], Checksum ;
+
+Reply14   = ID2, Size, Fac_High_SPI_Hz, Fac_Low_SPI_Hz, Time_Fac_High_SPI_Hz,
+            Time_Fac_Low_SPI_Hz, Connection_Fac_High_Hz, Connection_Fac_Low_Hz, 
+            Checksum ;
+\end{verbatim} 
+
+

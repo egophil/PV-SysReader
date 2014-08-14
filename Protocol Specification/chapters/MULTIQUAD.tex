@@ -1,0 +1,97 @@
+\section{Protocol Spezification - Victron Multiplus and Quadro}
+\label{VICTRONMULTIQUADEBNF}
+\begin{verbatim}
+HexDigit =                 [ a-fA-F0-9 ] ;
+Byte =                     HexDigit, HexDigit ;
+Hex =                      ( "0x", Byte ) ;
+
+U_INT32 =                  Hex, Hex, Hex, Hex ; (* Little-Endian *)
+U_INT24 =                  Hex, Hex, Hex ;      (* Little-Endian *)
+U_INT16 =                  Hex, Hex ;           (* Little-Endian *)
+INT16 =                    Hex, Hex ;           (* Little-Endian *)
+U_INT8 =                   Hex ;
+ASCII_Code =               Hex ;
+
+Length =                   U_INT8 ;
+Checksum =                 Hex ;    (* CRC-8 *)
+CMD_0 =                    "0x56" ;
+CMD_1 =                    "0x4c" ;
+CMD_2 =                    "0x20" ;
+CMD_3 =                    "0x41" ;
+
+Frame =                    "0xff" ;
+Frame_Type_0 =             "0x00" ; (* DC-Info Frame *)
+Frame_Type_1 =             "0x01" ; (* AC Info L1 Frame *)
+Frame_Type_2 =             "0x02" ; (* AC Info L2 Frame *)
+Frame_Type_3 =             "0x03" ; (* AC Info L3 Frame *)
+Frame_Type_4 =             "0x04" ; (* AC Info L4 Frame *)
+Frame_Type_5 =             "0x05" ; (* MasterMultiLED Frame *)
+
+LED_ON =                   Hex ;    (* 0-Bit: Mains, 1-Bit: Absorption,
+                                       2-Bit: Bulk,3-Bit: Float, 
+                                       4-Bit: Inverter, 5-Bit: Overload, 
+                                       6-Bit: Low battery, 7-Bit: Temperature *)
+
+LED_BLINK =                Hex ;    (* 0-Bit: Mains, 1-Bit: Absorption,
+                                       2-Bit: Bulk,3-Bit: Float, 
+                                       4-Bit: Inverter, 5-Bit: Overload, 
+                                       6-Bit: Low battery, 7-Bit: Temperature *)
+
+VersionNumber =            U_INT32
+Phase_Info =               U_INT8 ;
+DC_Voltage =               U_INT16 ;
+DC_Current_Inverter =      U_INT24 ;
+DC_Current_Charger =       U_INT24 ;
+Inverter_Periode =         U_INT8 ;
+BF_Factor =                U_INT8 ;
+Inverter_Factor =          U_INT8 ;
+Mains_Voltage =            U_INT16 ;
+Mains_Current =            INT16 ;
+Inverter_Voltage =         U_INT16 ;
+Inverter_Current =         INT16 ;
+Mains_Periode =            U_INT8 ;
+AC_Input_Configuration  =  Hex ; (* 0-Bit: last active AC0, 
+                                    1-Bit: last active AC1, 
+                                    2-Bit: Input Current overwritten by Panel
+                                    3-7-Bit: not defined *)
+MIN_INP_Current_Limit =    U_INT16 ;
+MAX_INP_Current_Limit =    U_INT16 ;
+Actual_INP_Current_Limit = U_INT16 ; 
+
+MK2_FRAME = Length, Frame, CMD_0, VersionNumber, Checksum ; (* Mk2 frame *)
+Request01 = 0x02, 0xff, 0x4c, 0xb3 ;        (* request to get LED Status *)
+Request02 = 0x03, 0xff, 0x46, 0x00 , 0xb8 ; (* request to get InfoFrame0 *)
+Request03 = 0x03, 0xff, 0x46, 0x01 , 0xb7 ; (* request to get InfoFrame1 *)
+Request04 = 0x03, 0xff, 0x46, 0x02 , 0xb6 ; (* request to get InfoFrame2 *)
+Request05 = 0x03, 0xff, 0x46, 0x03 , 0xb5 ; (* request to get InfoFrame3 *)
+Request06 = 0x03, 0xff, 0x46, 0x04 , 0xb4 ; (* request to get InfoFrame4 *)
+Request07 = 0x03, 0xff, 0x46, 0x05 , 0xb3 ; (* request to get InfoFrame5 *)
+
+Reply01 =   Length, Frame, CMD_1, LED_ON, LED_BLINK, Checksum ;
+
+Reply02 =   Length, CMD_2, Frame_Type_0, Hex[ 4 ], Phase_Info, DC_Voltage, 
+            DC_Current_Inverter, DC_Current_Charger, Inverter_Periode, 
+            Checksum ;
+             
+Reply03 =   Length, CMD_2, Frame_Type_1, BF_Factor, Inverter_Factor, 
+            Mains_Voltage, Mains_Current, Inverter_Voltage, Inverter_Current,
+            Mains_Periode, Checksum ;
+             
+Reply04 =   Length, CMD_2, Frame_Type_2, BF_Factor, Inverter_Factor, 
+            Mains_Voltage, Mains_Current, Inverter_Voltage, Inverter_Current,
+            Mains_Periode, Checksum ;
+             
+Reply05 =   Length, CMD_2, Frame_Type_3, BF_Factor, Inverter_Factor, 
+            Mains_Voltage, Mains_Current, Inverter_Voltage, Inverter_Current,
+            Mains_Periode, Checksum ;
+             
+Reply06 =   Length, CMD_2, Frame_Type_4, BF_Factor, Inverter_Factor, 
+            Mains_Voltage, Mains_Current, Inverter_Voltage, Inverter_Current,
+            Mains_Periode, Checksum ;
+             
+Reply07 =   Length, CMD_3, Frame_Type_5, Hex[ 4 ], AC_Input_Configuration, 
+            MIN_INP_Current_Limit, MAX_INP_Current_Limit, 
+            Actual_INP_Current_Limit, Checksum ;
+\end{verbatim} 
+
+

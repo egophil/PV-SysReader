@@ -1,0 +1,39 @@
+\section{Protocol Spezification - Victron MPPT Chargers}
+\label{VICTRONMPPTEBNF}
+
+\begin{verbatim}
+
+LF =               "0x0d","0x0a" ;
+Tab =              "0x09" ;
+HexDigit =         [ a-fA-F0-9 ] ;
+Byte =             HexDigit, HexDigit ;
+Hex =              ( "0x", Byte ) ;
+U_INT8 =           Hex ;
+U_INT16 =          Hex, Hex ;
+U_INT32 =          Hex, Hex, Hex,Hex ;
+ASCII_Char =       Hex ;
+
+V =   LF, "V", Tab, U_INT16 ;                      (* Main  (battery) voltage *)
+VPV = LF, "V", Tab, U_INT16(* can be wrong *) ;    (* Panel voltage *)
+PPV = LF, "V", Tab, U_INT16(* can be wrong *) ;    (* Panel power *)
+I =   LF, "I", Tab, U_INT32 ;                      (*  Current *)
+H19 = LF, "H19", Tab, U_INT16(* can be wrong *) ;  (* Yield total *)
+H20 = LF, "H20", Tab, U_INT16(* can be wrong *) ;  (* Yield today *)
+H21 = LF, "H21", Tab, U_INT16(* can be wrong *) ;  (* Maximum power today *)
+H22 = LF, "H22", Tab, U_INT16(* can be wrong *) ;  (* Yield yesterday *)
+H23 = LF, "H23", Tab, U_INT16(* can be wrong *) ;  (* Maximum power yesterday *)
+ERR = LF, "ERR", Tab, U_INT16(* can be wrong *) ;  (* Error code *)
+FW =  LF, "FW", Tab, U_INT16 ;                     (* Firmware version *)
+PID = LF, "PID", Tab, U_INT16 ;                    (* Product ID *)
+SER = LF, "SER#", Tab, U_INT16 (* can be wrong *); (* Serial number *)
+
+Checksum =         LF, "Checksum", Tab, U_INT8 ;   (* CRC-8 *)
+
+MPPT_Block =       V, VPV, PPV, I, H19, H20, H21, H22, H23, ERR, FW, PID, SER#,
+                   Checksum ;
+
+VICTRON_MPPT_MSG = MPPT_Block ;
+\end{verbatim}
+\newpage
+
+
