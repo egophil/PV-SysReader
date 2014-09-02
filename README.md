@@ -26,6 +26,7 @@ PV-SysReader is a tool to retrieve information from Photovoltaic Systems.
 - Victron Blue Solar Grid Inverters
 - Victron BMV 700/702 battery monitors
 - Victron MPPT 70/15 chargers
+- Litrade BMS 16S-PMOS
 
 ## Requirements
  - RS232-USB interface for Victron Blue Solar Grid Inverter
@@ -136,6 +137,8 @@ Philipp Drieß: <egophil@gmx.de>
 GPLv3
 
 ## History
+######0.2 alpha
+Support for Litrade Battery Management System added - BMS 16S-PMOS  <http://www.litrade.de/>
 
 ######0.1 alpha
 First release

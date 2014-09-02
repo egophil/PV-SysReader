@@ -15,6 +15,7 @@
 
 #include "rs232/rs232.h"
 #include "battery_monitors/victron_bmv.h"
+#include "battery_monitors/litrade_bms16p.h"
 #include "pv_chargers/victron_mppt.h"
 #include "pv_inverters/victron_bs.h"
 #include "pv_inverters/victron_mk2.h"
@@ -24,8 +25,8 @@ void print_usage()
   printf("usage:\n");
   printf("-i: interface i.e.:  /dev/ttyUSB0 \n");
   printf("-o: stat | param | all\n");
-  printf("-d: read from: mppt | bmv | bs_inverter | mk2\n");
-  printf("-r: raw read from: mppt | bmv | bs_inverter | mk2\n");
+  printf("-d: read from: mppt | bmv | bs_inverter | mk2 | litrade_bms16p\n");
+  printf("-r: raw read from: mppt | bmv | bs_inverter | mk2 | litrade_bms16p\n");
   
   printf("Option \"-o\" only for BlueSolar Inverter:\n -o stat\n -o param\n -o all\n\n");
   
@@ -33,13 +34,15 @@ void print_usage()
   printf("read from bmv: \"PV-SysReader -i /dev/ttyUSB0 -d bmv\"\n");
   printf("read from mppt charger: \"PV-SysReader -i /dev/ttyUSB0 -d mppt\"\n");
   printf("read from BlueSolar Inverter: \"PV-SysReader -i /dev/ttyUSB0 -o stat -d bs_inverter\"\n"); 
-  printf("read from mk2: \"PV-SysReader -i /dev/ttyUSB0 -d mk2\"\n\n");  
+  printf("read from mk2: \"PV-SysReader -i /dev/ttyUSB0 -d mk2\"\n");  
+  printf("read from Litrade BMS: \"PV-SysReader -i /dev/ttyUSB0 -d litrade_bms16p\"\n\n");  
   
   printf("Examples for raw rs2323 read, output will be in Hex:\n");
   printf("bmv: \"PV-SysReader -i /dev/ttyUSB0 -r bmv\" \n");
   printf("mppt: \"PV-SysReader -i /dev/ttyUSB0 -r mppt\" \n");
   printf("BlueSolar Grid Inverter: \"PV-SysReader -i /dev/ttyUSB0 -r bs_inverter\" \n");  
   printf("mk2: \"PV-SysReader -i /dev/ttyUSB0 -r mk2\" \n");
+  printf("Litrade BMS: \"PV-SysReader -i /dev/ttyUSB0 -r litrade_bms16p\" \n");  
   
 }
 
@@ -110,6 +113,10 @@ int main(int argc, char **argv)
 	{
 	  mk2_init();
 	}
+	else if (strcmp(optarg,"litrade_bms16p")==0) 
+	{
+          bms16p_init(interface);
+	}
 	else
 	{
 	  printf("unknown option %s\n", optarg);
@@ -143,6 +150,10 @@ int main(int argc, char **argv)
 	else if(strcmp(optarg,"mk2")==0)
 	{
 	  mk2_raw_read();
+	}
+	else if (strcmp(optarg,"litrade_bms16p")==0) 
+	{
+          bms16p_raw_init();
 	}
         else
 	{
