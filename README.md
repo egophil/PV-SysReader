@@ -84,11 +84,11 @@ assigned to the same device node.
 
 To read from a Victron BMV Battery monitor:
 ```bash
-PV-SysReader -i /dev/ttyUSB0 -d bmv
+./PV-SysReader -i /dev/ttyUSB0 -d bmv
 ```
 To read from a Victron MPPT Charger like the MPPT 70/15 :
 ```bash
-PV-SysReader -i /dev/ttyUSB0 -d mppt
+./PV-SysReader -i /dev/ttyUSB0 -d mppt
 ```
 
 To read from a Victron Blue Solar Grind Inverter.
@@ -98,24 +98,24 @@ Note there are three options available
  * all - get common and specific paramerters
 
 ```bash
-PV-SysReader -i /dev/ttyUSB0 -o stat -d bs_inverter
-PV-SysReader -i /dev/ttyUSB0 -o param -d bs_inverter
-PV-SysReader -i /dev/ttyUSB0 -o all -d bs_inverter
+./PV-SysReader -i /dev/ttyUSB0 -o stat -d bs_inverter
+./PV-SysReader -i /dev/ttyUSB0 -o param -d bs_inverter
+./PV-SysReader -i /dev/ttyUSB0 -o all -d bs_inverter
 ```
 
 Requesting parameters with a MK2-USB Interface 
 ```
-PV-SysReader -i /dev/ttyUSB0 -d mk2
+./PV-SysReader -i /dev/ttyUSB0 -d mk2
 ```
 ***
 **For debugging it is useful to get the raw output in hex**
 
 Instead of usind the -d operator you use -r for raw output
 ```bash
-PV-SysReader -i /dev/ttyUSB0 -r bmv
-PV-SysReader -i /dev/ttyUSB0 -r mppt
-PV-SysReader -i /dev/ttyUSB0 -r bs_inverter
-PV-SysReader -i /dev/ttyUSB0 -r mk2
+./PV-SysReader -i /dev/ttyUSB0 -r bmv
+./PV-SysReader -i /dev/ttyUSB0 -r mppt
+./PV-SysReader -i /dev/ttyUSB0 -r bs_inverter
+./PV-SysReader -i /dev/ttyUSB0 -r mk2
 ```
 Note: The option for Blue Solar Grid Inverter does not exists in raw output 
 mode.
@@ -129,6 +129,7 @@ The project needs support:
 
 ## Thanks to
 Thanks for testing to Ultraschall81 from <http://www.photovoltaikforum.com/>
+Thanks to mikele9 from <http://www.photovoltaikforum.com/>
 
 ## Author
 Philipp Drieß: <egophil@gmx.de>
