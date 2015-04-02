@@ -19,7 +19,7 @@ PV-SysReader is a tool to retrieve information from Photovoltaic Systems.
 - MPPT Battery charger
 
 ## Version
-0.1alpha
+0.3 alpha
 
 ## Supported Devices
 - Victron MultiPlus and Quattro
@@ -140,7 +140,7 @@ GPLv3
 ## History
 ######0.3 alpha
 Litrade BMS 16-PMOS code updated and tested
-Type convertion error in BMV fixed (cumulative amp hours drawn)
+Type conversion error in BMV fixed (cumulative amp hours drawn)
 
 
 ######0.2 alpha
