@@ -192,7 +192,7 @@ u_int8_t buffer_shift_left(char* buffer, u_int16_t* size, u_int8_t* bmv_model)
   int i= 0;
   char temp[1];
   
-  //shifting buffer to start with: 0x0d 0x0a 0x50 0x49 0x44 (LF, PID)
+  //shifting buffer to start with: 0x0d 0x0a 0x50 0x49 0x44 (CR, LF, PID)
   //for BMV 70x
   if (*bmv_model==7)
   {
@@ -489,7 +489,7 @@ u_int8_t bmv_buffer_extract(char* buffer, struct bmv_elements* elements)
       ptr = strtok(NULL, limiter);
       if (ptr!=NULL)  
       {
-        elements->cumulative_amp_hours=(u_int16_t)strtol(ptr, NULL, 10);
+        elements->cumulative_amp_hours=(int)strtol(ptr, NULL, 10);
       }
       else
       {

@@ -138,6 +138,11 @@ Philipp Drieß: <egophil@gmx.de>
 GPLv3
 
 ## History
+######0.3 alpha
+Litrade BMS 16-PMOS code updated and tested
+Type convertion error in BMV fixed (cumulative amp hours drawn)
+
+
 ######0.2 alpha
 Support for Litrade Battery Management System added - BMS 16S-PMOS  <http://www.litrade.de/>
 

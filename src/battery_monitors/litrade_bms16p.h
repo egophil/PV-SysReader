@@ -32,9 +32,8 @@
   
   void bms16p_init(char* interface);
   u_int8_t bms16p_read(char* buffer, char* interface);
-  u_int8_t bms16p_buffer_extract(char* buffer, struct bms16p_elements* elements);
+  u_int8_t bms16p_buffer_extract(char* buffer, u_int16_t buffer_size, struct bms16p_elements* elements);
   void bms16p_print_stat(struct bms16p_elements* elements);
   void bms16p_raw_init(void);
-
   
 #endif
