@@ -129,7 +129,7 @@ The project needs support:
 
 ## Thanks to
 Thanks for testing to Ultraschall81 from <http://www.photovoltaikforum.com/>  
-Thanks to mikele9 from <http://www.photovoltaikforum.com/>
+Thanks to mikele9 from <http://www.photovoltaikforum.com/>  
 Thanks to Shanan
 
 ## Author
