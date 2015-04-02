@@ -24,14 +24,14 @@ PV-SysReader is a tool to retrieve information from Photovoltaic Systems.
 ## Supported Devices
 - Victron MultiPlus and Quattro
 - Victron Blue Solar Grid Inverters
-- Victron BMV 700/702 battery monitors
+- Victron BMV 600/602/700/702 battery monitors
 - Victron MPPT 70/15 chargers
 - Litrade BMS 16S-PMOS
 
 ## Requirements
  - RS232-USB interface for Victron Blue Solar Grid Inverter
  - TTL-USB interface for Victron Battery Monitor
- - MK2-USB interface for Victron MultiPlus/Quattro  
+ - MK2-USB interface for Victron MultiPlus/Quattro
 Note: The MK2-USB interface must have the firmware 1130128 or greater.
 
 ## Installation
@@ -42,7 +42,7 @@ Please make sure you have the following software on your Linux system:
  - doxygen*
  - latex*
 
-*Doxygen and Latex is required to build the protocol specification and code documentation scratch.  
+*Doxygen and Latex is required to build the protocol specification and code documentation from scratch.  
 The protocol specification pdf is already included.
 
 ```bash
@@ -125,11 +125,12 @@ The project needs support:
  - Tester
  - Developer
  - New ideas
- - Bug reports
+ - Bug report
 
 ## Thanks to
-Thanks for testing to Ultraschall81 from <http://www.photovoltaikforum.com/>
+Thanks for testing to Ultraschall81 from <http://www.photovoltaikforum.com/>  
 Thanks to mikele9 from <http://www.photovoltaikforum.com/>
+Thanks to Shanan
 
 ## Author
 Philipp Drieß: <egophil@gmx.de>
@@ -139,8 +140,8 @@ GPLv3
 
 ## History
 ######0.3 alpha
-Litrade BMS 16-PMOS code updated and tested
-Type conversion error in BMV fixed (cumulative amp hours drawn)
+Litrade BMS 16-PMOS code updated and tested  
+Type conversion error in BMV fixed (cumulative amp hours drawn)  
 
 
 ######0.2 alpha
